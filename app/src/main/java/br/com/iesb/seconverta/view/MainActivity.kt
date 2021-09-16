@@ -21,13 +21,21 @@ class MainActivity : AppCompatActivity() {
             )
         ).get(CurrencyViewModel::class.java)
 
-        viewModel.getCountries("latest")
+        //viewModel.getCountries("latest")
+
+//        viewModel.countriesListLiveData.observe(this){ list ->
+//            Log.d("MutableList", "$list\n")
+//        }
+
+        viewModel.getCurrency("latest", "usd")
 
 
-        viewModel.countriesListLiveData.observe(this){ list ->
-            Log.d("MutableList", "$list\n")
+        viewModel.currencyLiveData.observe(this){
+            Log.d("Currency", "${it.brl}")
         }
 
-
+        viewModel.currencyList.observe(this){
+            Log.d("Currency", "${it}")
+        }
     }
 }
