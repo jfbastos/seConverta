@@ -1,66 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="165dp"
-    android:layout_height="120dp"
-    android:layout_margin="12dp"
-    android:background="@drawable/rounded_content"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:background="@drawable/rounded_content_top"
-        android:backgroundTint="@color/greenTop">
+    <LinearLayout
+        android:layout_width="165dp"
+        android:layout_height="120dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/rounded_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:background="@drawable/rounded_content_top"
+            android:backgroundTint="@color/greenTop">
+
+            <TextView
+                android:id="@+id/currencyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="USD"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/currencyName"
+            android:id="@+id/currencyValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="6dp"
-            android:text="Teste"
+            android:layout_margin="16dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            tools:text="$ 100,00" />
+
+        <TextView
+            android:id="@+id/totalCurrencyValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/currencyNameDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="1dp"
-            android:text="(test)"
-            android:textColor="@color/gray"
-            android:textSize="10sp"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="@id/currencyName"
-            app:layout_constraintLeft_toRightOf="@+id/currencyName"
-            app:layout_constraintTop_toTopOf="@+id/currencyName" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/currencyType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="(test)"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="italic" />
-
-    <TextView
-        android:id="@+id/currencyTypeSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="(test)"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
+            tools:text="R$ 600,0"/>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

@@ -6,22 +6,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.iesb.seconverta.R
+import br.com.iesb.seconverta.databinding.CurrencyContentBinding
 import br.com.iesb.seconverta.model.CountryCode
-import br.com.iesb.seconverta.model.network.CurrencyApi
+import br.com.iesb.seconverta.model.CurrencyItem
+import br.com.iesb.seconverta.utils.Formaters
 
-class CurrencyAdapter(private val items: ArrayList<CountryCode>):
-    RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>(){
+class CurrencyAdapter(private val items: ArrayList<CurrencyItem>) :
+    RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
 
-    class CurrencyViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        private val currencyNameTextView: TextView = itemView.findViewById(R.id.currencyName)
-        private val currencyNameDetailTextView: TextView = itemView.findViewById(R.id.currencyNameDetail)
-        var currentCurrency: CurrencyApi? = null
-
-        fun bind(currency: CountryCode) {
-
-            currencyNameTextView.text = currency.toString()
-            currencyNameDetailTextView.text = currency.toString()
+    class CurrencyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val itemBinding = CurrencyContentBinding.bind(itemView)
+        //val mainViewBinding
+        fun bind(currency: CurrencyItem) {
+            itemBinding.currencyName.text = currency.code
+            itemBinding.currencyValue.text = Formaters.formatMoneyToString(currency.value)
+            itemBinding.totalCurrencyValue.text = "R$ 100 - TODO"
         }
     }
 
@@ -36,4 +35,12 @@ class CurrencyAdapter(private val items: ArrayList<CountryCode>):
     }
 
     override fun getItemCount() = items.size
+
+    fun update(selectedCurrencies: List<CurrencyItem>) {
+        items.clear()
+        items.addAll(selectedCurrencies)
+        notifyDataSetChanged()
+    }
+
+
 }
