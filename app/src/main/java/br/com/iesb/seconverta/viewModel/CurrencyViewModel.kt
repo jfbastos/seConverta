@@ -10,15 +10,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel() {
-    val countriesListLiveData = MutableLiveData<MutableList<CountryCode>>()
+    val countriesListLiveData = MutableLiveData<HashMap<String, String>>()
     val currencyList = repository.getCurrencyList()
     val currencyLiveData = MutableLiveData<CurrencyValue>()
     val requestError = MutableLiveData<EventWrapper<String>>()
-    private val countries: MutableList<CountryCode> = mutableListOf()
-
 
     fun getCountries(date: String) {
         viewModelScope.launch {
@@ -26,9 +23,9 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
                 val response = repository.fetchAllCountries(date)
                 if (response.isSuccessful) {
                     response.body()?.forEach {
-                        countries.add(CountryCode(it.key, it.value))
+                        CountryCode.addCountrie(it.key, it.value)
                     }
-                    countriesListLiveData.value = countries
+                    countriesListLiveData.value = CountryCode.getCountries()
                 } else {
                     requestError.value = EventWrapper("Can't get countries list")
                 }
@@ -38,24 +35,24 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
         }
     }
 
-    fun getCurrency(date: String, otherCountry : String){
+    fun getCurrency(date: String, otherCountry: String) {
         viewModelScope.launch {
-            try{
+            try {
                 val response = repository.fetchCurrency(date, otherCountry)
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     val returned = response.body()!!
                     currencyLiveData.value = returned
                     insertCurrencyItem(CurrencyItem(otherCountry, returned.brl))
                 }
-            }catch (e : Exception){
+            } catch (e: Exception) {
                 requestError.value = EventWrapper("Problem to get Currency")
             }
         }
     }
 
-    private fun insertCurrencyItem(currency : CurrencyItem){
+    private fun insertCurrencyItem(currency: CurrencyItem) {
         CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.Default){
+            withContext(Dispatchers.Default) {
                 MyApplication.database!!.CurrencyDao().insertCurrency(currency)
             }
         }

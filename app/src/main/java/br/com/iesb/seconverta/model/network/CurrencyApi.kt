@@ -18,6 +18,6 @@ interface CurrencyApi {
     @GET("{date}/currencies/{otherCountry}/brl.json")
     suspend fun fetchCurrency(
         @Path("date") date: String,
-        @Path("otherCountry") fistrCountry: String,
+        @Path("otherCountry") otherCountry: String,
     ): Response<CurrencyValue>
 }
