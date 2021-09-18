@@ -1,9 +1,6 @@
 package br.com.iesb.seconverta.viewModel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import br.com.iesb.seconverta.MyApplication
 import br.com.iesb.seconverta.model.*
 import kotlinx.coroutines.CoroutineScope
@@ -12,8 +9,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel() {
-    val countriesListLiveData = MutableLiveData<HashMap<String, String>>()
-    val currencyList = repository.getCurrencyList()
+    val countriesListLiveData = MutableLiveData<List<Country>>()
+    var currencyList = repository.getCurrencyList()
     val currencyLiveData = MutableLiveData<CurrencyValue>()
     val requestError = MutableLiveData<EventWrapper<String>>()
 
@@ -25,7 +22,7 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
                     response.body()?.forEach {
                         CountryCode.addCountrie(it.key, it.value)
                     }
-                    countriesListLiveData.value = CountryCode.getCountries()
+                    countriesListLiveData.value = CountryCode.getCountriesList()
                 } else {
                     requestError.value = EventWrapper("Can't get countries list")
                 }
@@ -47,6 +44,13 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
             } catch (e: Exception) {
                 requestError.value = EventWrapper("Problem to get Currency")
             }
+        }
+    }
+
+    fun updateCurrencies() {
+
+        currencyList.value?.forEach {
+            getCurrency("latest", it.code)
         }
     }
 

@@ -8,56 +8,47 @@
         android:layout_height="match_parent"
         tools:context=".view.MainActivity">
 
-
         <LinearLayout
-            android:id="@+id/currencyDate"
+            android:id="@+id/user_presentation"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/rounded_content_bottom"
             android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/currNameActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingStart="30dp"
-                android:text="@string/realText"
-                android:textColor="@color/black"
-                android:textSize="32sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/currNameActivityDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/siglaText"
-                android:textSize="20sp" />
+            android:background="@drawable/rounded_content_bottom"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rvList">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingStart="30dp"
-                android:text="@string/equalText"
-                android:textSize="32sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/currencyValue"
-                android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingStart="20sp"
-                android:inputType="number"
-                android:text="@string/InsertValueText"
-                android:textColor="@color/black"
-                android:textSize="32sp"
-                android:textStyle="bold" />
+                android:layout_marginVertical="12dp"
+                android:layout_marginStart="12dp"
+                android:text="Olá, "
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="12dp"
+                tools:text="Fulano da Silva"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+            <ImageButton
+                android:id="@+id/buttonAddCountries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="12dp"
+                android:backgroundTint="@color/greenTopDetail"
+                android:src="@drawable/ic_baseline_add_24" />
+
         </LinearLayout>
 
 
@@ -65,21 +56,69 @@
             android:id="@+id/rvList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_presentation"
+            app:layout_constraintBottom_toTopOf="@+id/currencyDate"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/currencyDate"
             tools:listitem="@layout/currency_content" />
 
+        <LinearLayout
+            android:id="@+id/currencyDate"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/rounded_content_top"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:textColor="@color/white"
+                android:text="Converter: " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/equalText"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/currencyValue"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:text="@string/InsertValueText"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonAddCurrency"
+            android:id="@+id/buttonRefreshCurrencies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/greenTopDetail"
-            android:src="@drawable/ic_add_black_24dp"
+            android:backgroundTint="@color/teal_700"
+            android:src="@drawable/ic_convert_24"
+            app:borderWidth="0dp"
+            app:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/user_presentation"
+            app:layout_constraintHorizontal_bias="0.90"
+            app:layout_constraintVertical_bias="0.91" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

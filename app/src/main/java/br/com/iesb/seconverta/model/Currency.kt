@@ -11,9 +11,6 @@ class CountryCode() {
             countries[key] = value
         }
 
-        fun getCountries(): HashMap<String, String> {
-            return countries
-        }
 
         fun getOneCountry(countryCode: String): String {
             return try {
@@ -22,8 +19,22 @@ class CountryCode() {
                 "Not found country"
             }
         }
+
+        fun getCountriesList(): List<Country> {
+            val listCountries: MutableList<Country> = mutableListOf()
+
+            countries.keys.forEach { key ->
+                listCountries.add(Country(key, countries.getValue(key)))
+            }
+
+            listCountries.sortBy { it.name }
+
+            return listCountries
+        }
     }
 }
+
+data class Country(val code: String, val name: String)
 
 data class CurrencyValue(
     val date: String?,

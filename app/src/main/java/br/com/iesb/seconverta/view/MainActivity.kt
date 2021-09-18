@@ -1,8 +1,12 @@
 package br.com.iesb.seconverta.view
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,7 +19,7 @@ import br.com.iesb.seconverta.viewModel.CurrencyViewModel
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel : CurrencyViewModel
     private lateinit var binding: ActivityMainBinding
-    private val currencyAdapter = CurrencyAdapter(arrayListOf())
+    private val currencyAdapter = CurrencyAdapter(arrayListOf(),this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +38,29 @@ class MainActivity : AppCompatActivity() {
             adapter = currencyAdapter
         }
 
+        viewModel.updateCurrencies()
+
         viewModel.currencyList.observe(this) {
             currencyAdapter.update(it)
         }
 
+        binding.buttonRefreshCurrencies.setOnClickListener { button ->
+            viewModel.updateCurrencies()
+            Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show()
+        }
 
 
+        var resultLaucher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()){ result ->
+            if(result.resultCode == Activity.RESULT_OK){
+                val data: Intent? = result.data
+            }
+        }
 
 
+        binding.buttonAddCountries.setOnClickListener {
+            val intent = Intent(this, ListCountriesActivity::class.java)
+            resultLaucher.launch(intent)
+        }
     }
 }
