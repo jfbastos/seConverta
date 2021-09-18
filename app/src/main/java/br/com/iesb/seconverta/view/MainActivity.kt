@@ -13,10 +13,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import br.com.iesb.seconverta.R
 import br.com.iesb.seconverta.databinding.ActivityMainBinding
 import br.com.iesb.seconverta.model.CurrencyRepository
+import br.com.iesb.seconverta.model.User
 import br.com.iesb.seconverta.view.adapter.CurrencyAdapter
 import br.com.iesb.seconverta.viewModel.CurrencyViewModel
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        val USER_EXTRA = "user"
+    }
+
     private lateinit var viewModel : CurrencyViewModel
     private lateinit var binding: ActivityMainBinding
     private val currencyAdapter = CurrencyAdapter(arrayListOf(),this)
@@ -27,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        binding.user = intent.getSerializableExtra(USER_EXTRA) as User
 
         viewModel = ViewModelProvider(
             this, CurrencyViewModel.CurrencyViewModelFactory(CurrencyRepository()

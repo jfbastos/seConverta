@@ -13,7 +13,7 @@
         android:theme="@style/Theme.SeConverta">
         <activity android:name=".view.ListCountriesActivity" android:exported="true"/>
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.MainActivity"/>
     </application>
 
 </manifest>
