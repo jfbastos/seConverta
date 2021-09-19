@@ -13,4 +13,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="greenTop">#2B712E</color>
     <color name="greenTopDetail">#69B391</color>
+    <color name="background_color">#D5E8DF</color>
 </resources>
