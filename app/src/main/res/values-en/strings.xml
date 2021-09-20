@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">SeConverta</string>
-    <string name="realText">Real</string>
-    <string name="siglaText">(brl)</string>
     <string name="equalText">R$</string>
-    <string name="InsertValueText">100.00</string>
+    <string name="InsertValueText">1.00</string>
     <string name="ola">Hi, </string>
     <string name="converter">Convert: </string>
     <string name="selecione_as_moedas">Select currencies</string>
     <string name="adicionar">Add</string>
+    <string name="update_message">Updated</string>
 </resources>

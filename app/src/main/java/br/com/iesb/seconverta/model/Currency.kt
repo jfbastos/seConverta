@@ -3,7 +3,7 @@ package br.com.iesb.seconverta.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-class CountryCode() {
+class CountryCode {
     companion object {
         private val countries: HashMap<String, String> = HashMap()
 
@@ -11,17 +11,16 @@ class CountryCode() {
             countries[key] = value
         }
 
-
-        fun getOneCountry(countryCode: String): String {
+        fun getCountryName(countryCode: String): String {
             return try {
                 countries.getValue(countryCode)
             } catch (error: NoSuchElementException) {
-                "Not found country"
+                "Name not found"
             }
         }
 
-        fun getCountriesList(): List<Country> {
-            val listCountries: MutableList<Country> = mutableListOf()
+        fun getCountriesList(): ArrayList<Country> {
+            val listCountries: ArrayList<Country> = arrayListOf()
 
             countries.keys.forEach { key ->
                 listCountries.add(Country(key, countries.getValue(key)))
@@ -34,7 +33,8 @@ class CountryCode() {
     }
 }
 
-data class Country(val code: String, val name: String)
+
+data class Country(val code: String, val name: String) : java.io.Serializable
 
 data class CurrencyValue(
     val date: String?,
@@ -42,7 +42,10 @@ data class CurrencyValue(
 )
 
 @Entity(tableName = "currency")
-data class CurrencyItem(
+data class Currency(
     @PrimaryKey val code: String,
-    val value: Double
+    val value: Double,
+    val lastUpdate: String?,
+    val countryName: String,
+    val isSelected: Boolean
 )

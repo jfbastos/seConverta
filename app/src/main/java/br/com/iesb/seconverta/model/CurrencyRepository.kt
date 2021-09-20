@@ -16,18 +16,17 @@ class CurrencyRepository {
         .build()
         .create(CurrencyApi::class.java)
 
-    suspend fun fetchAllCountries(date : String): Response<LinkedTreeMap<String, String>>{
+    suspend fun fetchAllCountries(date: String): Response<LinkedTreeMap<String, String>> {
         return api.fetchAllCountries(date)
     }
 
-    suspend fun fetchCurrency(date: String, otherCountry : String): Response<CurrencyValue>{
+    suspend fun fetchCurrency(date: String, otherCountry: String): Response<CurrencyValue> {
         return api.fetchCurrency(date, otherCountry)
     }
 
-    fun getCurrencyList() : LiveData<List<CurrencyItem>>{
+    fun getCurrencyList(): LiveData<List<Currency>> {
         return MyApplication.database!!.CurrencyDao().currency
     }
-
 
 
 }

@@ -7,23 +7,35 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class AuthRepository {
 
-    fun firebaseSignInWithGoogle(googleAuthCredential: AuthCredential, authenticatedUserLiveData: MutableLiveData<User>) {
+    fun firebaseSignInWithGoogle(
+        googleAuthCredential: AuthCredential,
+        authenticatedUserLiveData: MutableLiveData<User>
+    ) {
         val firebaseAuth = FirebaseAuth.getInstance()
-        firebaseAuth.signInWithCredential(googleAuthCredential).addOnCompleteListener() { authTask ->
+        firebaseAuth.signInWithCredential(googleAuthCredential).addOnCompleteListener { authTask ->
             if (authTask.isSuccessful) {
                 val isNewUser = authTask.result.additionalUserInfo?.isNewUser
                 val currenUser = firebaseAuth.currentUser
                 currenUser?.let {
-                    authenticatedUserLiveData.value = User(currenUser.uid, currenUser.displayName, currenUser.email,isNewUser?: false)
+                    authenticatedUserLiveData.value = User(
+                        currenUser.uid,
+                        currenUser.displayName,
+                        currenUser.email,
+                        isNewUser ?: false
+                    )
                 }
             }
         }
     }
-    fun createUserInFirestoreIfNotExists(authenticatedUser: User,createdUserLiveData  : MutableLiveData<User>) {
+
+    fun createUserInFirestoreIfNotExists(
+        authenticatedUser: User,
+        createdUserLiveData: MutableLiveData<User>
+    ) {
         val rootRef = FirebaseFirestore.getInstance()
         val usersRef = rootRef.collection(User.REF_NAME)
         val uidRef = usersRef.document(authenticatedUser.uid)
-        uidRef.get().addOnCompleteListener{ uidTask ->
+        uidRef.get().addOnCompleteListener { uidTask ->
             if (uidTask.isSuccessful) {
                 val document = uidTask.result
                 if (!document.exists()) {

@@ -5,18 +5,18 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import br.com.iesb.seconverta.model.CurrencyItem
+import br.com.iesb.seconverta.model.Currency
 
 @Dao
 interface CurrencyDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCurrency(currency : CurrencyItem)
+    fun insertCurrency(currency: Currency)
 
     @get: Query("SELECT * FROM currency")
-    val currency : LiveData<List<CurrencyItem>>
+    val currency: LiveData<List<Currency>>
 
     @Query("DELETE FROM currency WHERE code = :code")
-    fun delete(code : String)
+    fun delete(code: String)
 
 }

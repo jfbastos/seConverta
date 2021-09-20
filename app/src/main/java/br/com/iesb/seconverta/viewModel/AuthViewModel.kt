@@ -12,6 +12,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     enum class SignInType(val type: String) {
         Google("Google")
     }
+
     val authButtonLiveData = MutableLiveData<EventWrapper<SignInType>>()
     val authenticatedUserLiveData = MutableLiveData<User>()
     val createdUserLiveData = MutableLiveData<User>()
@@ -29,10 +30,10 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     }
 
 
-    class AuthViewModelFactory(private val authRepository: AuthRepository) : ViewModelProvider.Factory {
+    class AuthViewModelFactory(private val authRepository: AuthRepository) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return AuthViewModel(authRepository) as T
         }
-
     }
 }

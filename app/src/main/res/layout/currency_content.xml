@@ -27,11 +27,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="USD"/>
+                tools:text="USD" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/currencyValue"
+            android:id="@+id/currencyItemValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -47,7 +47,7 @@
             android:layout_marginHorizontal="16dp"
             android:textColor="@color/black"
             android:textSize="18sp"
-            tools:text="R$ 600,0"/>
+            tools:text="R$ 600,0" />
 
 
     </LinearLayout>

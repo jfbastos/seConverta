@@ -1,6 +1,5 @@
 package br.com.iesb.seconverta.model.network
 
-import br.com.iesb.seconverta.model.CountryCode
 import br.com.iesb.seconverta.model.CurrencyValue
 import com.google.gson.internal.LinkedTreeMap
 import retrofit2.Response
