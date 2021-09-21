@@ -43,12 +43,6 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
                 if (response.isSuccessful) {
                     val returned = response.body()!!
                     currencyLiveData.value = returned
-                    countriesSelected.add(
-                        Country(
-                            otherCountry,
-                            CountryCode.getCountryName(otherCountry)
-                        )
-                    )
                     insertCurrencyItem(
                         Currency(
                             otherCountry,
@@ -82,12 +76,7 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
     fun deleteCurrencyItem(currency: Currency) {
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
-                countriesSelected.remove(
-                    Country(
-                        currency.code,
-                        CountryCode.getCountryName(currency.code)
-                    )
-                )
+                countriesSelected.removeAt(findIndexOf(currency.code))
                 MyApplication.database!!.CurrencyDao().delete(currency.code)
             }
         }
@@ -98,5 +87,9 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return CurrencyViewModel(repository) as T
         }
+    }
+
+    private fun findIndexOf(code : String) : Int{
+       return countriesSelected.indexOfFirst { it.code==code }
     }
 }

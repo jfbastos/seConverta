@@ -2,16 +2,17 @@ package br.com.iesb.seconverta.utils
 
 import android.app.Activity
 import android.widget.Toast
+import java.math.BigDecimal
 import java.util.*
 
 class Formaters {
 
     companion object {
-        fun formatMoneyToString(valor: Double?): String {
+        fun formatMoneyToString(valor: Double): String {
             return try {
-                String.format(Locale.ENGLISH, "R$ %.2f", valor)
+                String.format(Locale.ENGLISH, "%.3f", valor)
             } catch (e: Exception) {
-                "R$ 0.00"
+                "0.00"
             }
         }
 

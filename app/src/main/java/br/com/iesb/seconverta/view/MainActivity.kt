@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), CurrencyAdapter.OnLongItemClickListene
         viewModel.updateCurrencies()
 
         viewModel.currencyList.observe(this) { it ->
+            viewModel.countriesSelected.clear()
             it.forEach {
                 viewModel.countriesSelected.add(Country(it.code, it.countryName))
             }
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity(), CurrencyAdapter.OnLongItemClickListene
     override fun onLongItemClick(currency: Currency) {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.delete_title))
-            .setMessage(getString(R.string.delete_message) + currency.code)
+            .setMessage(getString(R.string.delete_message) + currency.code + "?")
             .setPositiveButton(getString(R.string.delete_confirmation)) { _, _ ->
                 currencyAdapter.updateDeleted(currency)
                 viewModel.deleteCurrencyItem(currency)

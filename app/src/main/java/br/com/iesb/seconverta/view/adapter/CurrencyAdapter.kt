@@ -37,13 +37,16 @@ class CurrencyAdapter(
 
         fun bind(currency: Currency, activity: Activity) {
             itemBinding.currencyName.text = currency.code
-            itemBinding.currencyItemValue.text = Formaters.formatMoneyToString(currency.value)
-            itemBinding.totalCurrencyValue.text = Formaters.formatMoneyToString(
-                (currency.value * Formaters.formatStringToDouble(
-                    currencyValue.text.toString(),
-                    activity
-                ))
-            )
+            itemBinding.currencyItemValue.text =
+                "${Formaters.formatMoneyToString(1 / currency.value)} = R$ 1,00"
+            itemBinding.totalCurrencyValue.text = "${currency.code} ${
+                Formaters.formatMoneyToString(
+                    (Formaters.formatStringToDouble(
+                        currencyValue.text.toString(),
+                        activity
+                    ) / currency.value)
+                )
+            }"
         }
     }
 

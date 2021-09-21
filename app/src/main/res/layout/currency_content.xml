@@ -38,7 +38,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="italic"
-            tools:text="$ 100,00" />
+            tools:text="100,00" />
 
         <TextView
             android:id="@+id/totalCurrencyValue"
