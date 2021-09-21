@@ -7,4 +7,11 @@
     <string name="selecione_as_moedas">Selecione as moedas</string>
     <string name="adicionar">Adicionar</string>
     <string name="update_message">Updated</string>
+    <string name="delete_title">Delete currency</string>
+    <string name="delete_message">Are you sure you want delete\u0020</string>
+    <string name="delete_confirmation">Yes</string>
+    <string name="delete_negation">No</string>
+    <string name="search_hint">Search country</string>
+    <string name="search_title">Search</string>
+    <string name="logout_title">Logout</string>
 </resources>
