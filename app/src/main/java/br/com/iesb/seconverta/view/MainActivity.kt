@@ -68,6 +68,12 @@ class MainActivity : AppCompatActivity(), CurrencyAdapter.OnLongItemClickListene
             intent.putExtra("countries", viewModel.countriesSelected)
             startActivity(intent)
         }
+
+        viewModel.requestError.observe(this) { erro ->
+            erro.getContentIfNotHandled()?.let{
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onLongItemClick(currency: Currency) {
