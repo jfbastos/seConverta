@@ -38,7 +38,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_view"
-            tools:listitem="@layout/currency_content_type" />
+            tools:listitem="@layout/country_item" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonAddSelectedCurrency"

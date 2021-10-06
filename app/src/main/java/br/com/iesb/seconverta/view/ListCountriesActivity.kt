@@ -2,6 +2,8 @@ package br.com.iesb.seconverta.view
 
 import android.os.Bundle
 import android.widget.SearchView
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +21,7 @@ class ListCountriesActivity : AppCompatActivity() {
     private lateinit var countriesAdapter: ListCountriesAdapter
     private var listOfSelectedCountries = arrayListOf<Country>()
     private var listOfCountries = arrayListOf<Country>()
+    private var selectedCountry = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +32,10 @@ class ListCountriesActivity : AppCompatActivity() {
             this, CurrencyViewModel.CurrencyViewModelFactory(CurrencyRepository())
         ).get(CurrencyViewModel::class.java)
 
-
         if (intent.hasExtra("countries")) {
             listOfSelectedCountries = intent.getSerializableExtra("countries") as ArrayList<Country>
+            selectedCountry = intent.getSerializableExtra("currency") as String
         }
-
 
         countriesAdapter = ListCountriesAdapter(arrayListOf(), listOfSelectedCountries)
 
@@ -42,7 +44,7 @@ class ListCountriesActivity : AppCompatActivity() {
             adapter = countriesAdapter
         }
 
-        viewModel.getCountries("latest")
+        viewModel.getCountries()
 
         viewModel.countriesListLiveData.observe(this) { countries ->
             listOfCountries.addAll(countries)
@@ -51,9 +53,13 @@ class ListCountriesActivity : AppCompatActivity() {
 
         binding.buttonAddSelectedCurrency.setOnClickListener {
             countriesAdapter.getSelectedCountries().forEach { country ->
-                viewModel.getCurrency("latest", country.code)
+                if (selectedCountry == "-") {
+                    viewModel.getCurrency("latest", country.code, country.code)
+                } else {
+                    viewModel.getCurrency("latest", selectedCountry, country.code)
+                }
             }
-            finish()
+            finishAndRemoveTask()
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -73,10 +79,6 @@ class ListCountriesActivity : AppCompatActivity() {
                 countriesAdapter.update(filtered)
                 return false
             }
-
         })
-
     }
-
-
 }

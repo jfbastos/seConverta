@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.iesb.seconverta.R
-import br.com.iesb.seconverta.databinding.CurrencyContentBinding
+import br.com.iesb.seconverta.databinding.CurrencyItemBinding
 import br.com.iesb.seconverta.model.Currency
 import br.com.iesb.seconverta.utils.Formaters
 import com.google.android.material.textfield.TextInputEditText
@@ -20,7 +20,7 @@ class CurrencyAdapter(
 
     inner class CurrencyViewHolder(itemView: View, activity: Activity) :
         RecyclerView.ViewHolder(itemView), View.OnLongClickListener {
-        private val itemBinding = CurrencyContentBinding.bind(itemView)
+        private val itemBinding = CurrencyItemBinding.bind(itemView)
         private val currencyValue = activity.findViewById<TextInputEditText>(R.id.currencyValue)
 
 
@@ -38,21 +38,15 @@ class CurrencyAdapter(
         fun bind(currency: Currency, activity: Activity) {
             itemBinding.currencyName.text = currency.code
             itemBinding.currencyItemValue.text =
-                "${Formaters.formatMoneyToString(1 / currency.value)} = R$ 1,00"
+                "${Formaters.formatMoneyToString(currency.value)} = R$ 1,00"
             itemBinding.totalCurrencyValue.text = "${currency.code} ${
-                Formaters.formatMoneyToString(
-                    (Formaters.formatStringToDouble(
-                        currencyValue.text.toString(),
-                        activity
-                    ) / currency.value)
-                )
-            }"
+                Formaters.formatMoneyToString(Formaters.formatStringToDouble(currencyValue.text.toString(),activity) * currency.value)}"
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.currency_content, parent, false)
+            .inflate(R.layout.currency_item, parent, false)
         return CurrencyViewHolder(view, activity)
     }
 

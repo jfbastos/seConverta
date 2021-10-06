@@ -48,7 +48,5 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             tools:text="R$ 600,0" />
-
-
     </LinearLayout>
 </layout>

@@ -10,7 +10,7 @@ class Formaters {
     companion object {
         fun formatMoneyToString(valor: Double): String {
             return try {
-                String.format(Locale.ENGLISH, "%.3f", valor)
+                String.format(Locale("pt","BR"), "%.2f", valor)
             } catch (e: Exception) {
                 "0.00"
             }

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.iesb.seconverta.R
-import br.com.iesb.seconverta.databinding.CurrencyContentTypeBinding
+import br.com.iesb.seconverta.databinding.CountryItemBinding
 import br.com.iesb.seconverta.model.Country
 
 class ListCountriesAdapter(
@@ -15,7 +15,7 @@ class ListCountriesAdapter(
     RecyclerView.Adapter<ListCountriesAdapter.CountriesViewHolder>() {
 
     inner class CountriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemBinding = CurrencyContentTypeBinding.bind(itemView)
+        val itemBinding = CountryItemBinding.bind(itemView)
 
         fun bind(country: Country) {
             itemBinding.currName.text = country.name
@@ -25,7 +25,7 @@ class ListCountriesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.currency_content_type, parent, false)
+            .inflate(R.layout.country_item, parent, false)
         return CountriesViewHolder(view)
     }
 

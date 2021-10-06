@@ -13,6 +13,7 @@
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/SeConverta/app/src/main/res/layout/activity_select_currency.xml" value="0.33" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/SeConverta/app/src/main/res/layout/currency_content.xml" value="0.371875" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/SeConverta/app/src/main/res/layout/currency_content_type.xml" value="0.371875" />
+        <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/drawable/background_spinner.xml" value="0.18504273504273505" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/drawable/ic_convert_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22552083333333334" />
@@ -23,14 +24,19 @@
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/drawable/rounded_content_top.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/drawable/searchview_background.xml" value="0.3880208333333333" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/activity_auth.xml" value="0.371875" />
-        <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/activity_main.xml" value="0.20885416666666667" />
+        <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/activity_searchable.xml" value="0.371875" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/activity_select_currency.xml" value="0.371875" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/currency_content.xml" value="0.33" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/currency_content_type.xml" value="0.20885416666666667" />
+        <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/simple_spinner_dropdown_item.xml" value="0.33" />
+        <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/layout/spinner_item.xml" value="0.371875" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/menu/menu.xml" value="0.371875" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/mipmap-anydpi-v26/seConverta_laucher.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/xml/mey_spinner_style.xml" value="0.1717948717948718" />
+        <entry key="..\:/Users/jfbas/AndroidStudioProjects/seConverta/app/src/main/res/xml/spinner_style.xml" value="0.1984375" />
+        <entry key="..\:/Users/jfbas/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.1717948717948718" />
         <entry key="..\:/Users/pcsams/Documents/AppsMobile/kotlin/ProjetoFinalAndroid1/seConverta/app/src/main/res/layout/activity_auth.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/pcsams/Documents/AppsMobile/kotlin/ProjetoFinalAndroid1/seConverta/app/src/main/res/layout/activity_main.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/pcsams/Documents/AppsMobile/kotlin/ProjetoFinalAndroid1/seConverta/app/src/main/res/layout/activity_select_currency.xml" value="0.36666666666666664" />

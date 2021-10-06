@@ -1,6 +1,5 @@
 package br.com.iesb.seconverta.model.network
 
-import br.com.iesb.seconverta.model.CurrencyValue
 import com.google.gson.internal.LinkedTreeMap
 import retrofit2.Response
 import retrofit2.http.GET
@@ -11,12 +10,13 @@ interface CurrencyApi {
         const val BASE_URL = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/"
     }
 
-    @GET("{date}/currencies.json")
-    suspend fun fetchAllCountries(@Path("date") date: String): Response<LinkedTreeMap<String, String>>
+    @GET("latest/currencies.json")
+    suspend fun fetchAllCountries(): Response<LinkedTreeMap<String, String>>
 
-    @GET("{date}/currencies/{otherCountry}/brl.json")
+    @GET("{date}/currencies/{country}/{otherCountry}.json")
     suspend fun fetchCurrency(
         @Path("date") date: String,
+        @Path("country") country: String,
         @Path("otherCountry") otherCountry: String,
-    ): Response<CurrencyValue>
+    ): Response<LinkedTreeMap<String, String>>
 }

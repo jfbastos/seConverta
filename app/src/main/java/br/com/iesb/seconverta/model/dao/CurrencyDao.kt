@@ -16,6 +16,7 @@ interface CurrencyDao {
     @get: Query("SELECT * FROM currency")
     val currency: LiveData<List<Currency>>
 
+
     @Query("DELETE FROM currency WHERE code = :code")
     fun delete(code: String)
 

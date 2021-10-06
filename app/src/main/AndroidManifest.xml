@@ -12,12 +12,11 @@
         android:roundIcon="@mipmap/seconverta_laucher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SeConverta">
-        <activity android:name=".view.MainActivity" />
         <activity
             android:name=".view.ListCountriesActivity"
             android:exported="true" />
         <activity
-            android:name=".view.AuthActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
