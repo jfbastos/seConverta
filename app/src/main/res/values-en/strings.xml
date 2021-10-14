@@ -1,17 +1,12 @@
 <resources>
     <string name="app_name">SeConverta</string>
-    <string name="equalText">R$</string>
     <string name="InsertValueText">1.00</string>
-    <string name="ola">Hi,\u0020</string>
-    <string name="converter">Convert:\u0020</string>
+    <string name="ola">Hi\u0020</string>
     <string name="selecione_as_moedas">Select currencies</string>
-    <string name="adicionar">Add</string>
+    <string name="confirma">Confirm</string>
     <string name="update_message">Updated</string>
     <string name="delete_title">Delete currency</string>
     <string name="delete_message">Are you sure you want delete\u0020</string>
     <string name="delete_confirmation">Yes</string>
     <string name="delete_negation">No</string>
-    <string name="search_hint">Search country</string>
-    <string name="search_title">Search</string>
-    <string name="logout_title">Logout</string>
 </resources>

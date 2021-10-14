@@ -13,7 +13,6 @@ class CustomArrayAdapter(getContext: Context, private val listOfCodes: List<Stri
 
     private var inflater : LayoutInflater = LayoutInflater.from(getContext)
 
-
     override fun getCount(): Int {
         return listOfCodes.size
     }

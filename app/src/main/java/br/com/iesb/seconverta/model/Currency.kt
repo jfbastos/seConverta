@@ -11,7 +11,6 @@ class CountryCode {
             countries[key] = value
         }
 
-
         fun getCountriesList(): ArrayList<Country> {
             val listCountries: ArrayList<Country> = arrayListOf()
 

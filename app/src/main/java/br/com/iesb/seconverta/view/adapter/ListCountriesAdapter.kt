@@ -9,10 +9,10 @@ import br.com.iesb.seconverta.databinding.CountryItemBinding
 import br.com.iesb.seconverta.model.Country
 
 class ListCountriesAdapter(
-    private val countries: ArrayList<Country>,
-    private val selectedCountries: ArrayList<Country>
+    private val countries: ArrayList<Country>, private val selectedCountries: ArrayList<Country>
 ) :
     RecyclerView.Adapter<ListCountriesAdapter.CountriesViewHolder>() {
+
 
     inner class CountriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemBinding = CountryItemBinding.bind(itemView)
@@ -54,5 +54,4 @@ class ListCountriesAdapter(
     fun getSelectedCountries(): List<Country> {
         return selectedCountries
     }
-
 }

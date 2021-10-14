@@ -8,13 +8,14 @@
         android:layout_height="120dp"
         android:layout_margin="12dp"
         android:background="@drawable/rounded_content"
+        android:elevation="5dp"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:background="@drawable/rounded_content_top"
-            android:backgroundTint="@color/greenTop">
+            android:backgroundTint="@color/teal_700">
 
             <TextView
                 android:id="@+id/currencyName"
@@ -28,6 +29,18 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="USD" />
+
+            <TextView
+                android:id="@+id/currencyDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:layout_marginEnd="10dp"
+                tools:text="10/10/2011"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

@@ -2,8 +2,6 @@ package br.com.iesb.seconverta.view
 
 import android.os.Bundle
 import android.widget.SearchView
-import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -52,6 +50,14 @@ class ListCountriesActivity : AppCompatActivity() {
         }
 
         binding.buttonAddSelectedCurrency.setOnClickListener {
+            viewModel.listOfCurrenciesFromDb.observe(this) { currencies ->
+                currencies.forEach { currency ->
+                    if(countriesAdapter.getSelectedCountries().findLast { it.code == currency.code } == null){
+                        viewModel.deleteCurrencyItem(currency)
+                    }
+                }
+            }
+
             countriesAdapter.getSelectedCountries().forEach { country ->
                 if (selectedCountry == "-") {
                     viewModel.getCurrency("latest", country.code, country.code)
@@ -59,7 +65,7 @@ class ListCountriesActivity : AppCompatActivity() {
                     viewModel.getCurrency("latest", selectedCountry, country.code)
                 }
             }
-            finishAndRemoveTask()
+            finish()
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

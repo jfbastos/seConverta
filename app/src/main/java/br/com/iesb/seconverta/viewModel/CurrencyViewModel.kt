@@ -1,6 +1,5 @@
 package br.com.iesb.seconverta.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -42,7 +41,6 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
         var currencyCode = ""
         var currencyValue = 0.0
         var currencyName = ""
-        var savedCurrency: Currency
 
         viewModelScope.launch {
             try {
@@ -50,28 +48,14 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
                 if (response.isSuccessful) {
                     response.body()?.forEach {
                         if (it.key.equals("date")) {
-                            dateOfRequest = it.key
-                            //Log.d("Currency", it.value)
+                            dateOfRequest = it.value
                         } else {
                             currencyCode = it.key
-                            currencyValue = try {
-                                it.value.toDouble()
-                            } catch (e: Exception) {
-                                0.0
-                            }
-                            try {
-                                currencyName = CountryCode.countries.getValue(it.key)
-                            } catch (e: Exception) {
-                                requestError.value =
-                                    EventWrapper("Error on find name")
-                            }
-                            //Log.d("Currency", "${it.key} | ${it.value} | $currencyName")
+                            currencyValue = it.value.toDouble()
+                            currencyName = CountryCode.countries.getValue(it.key)
                         }
                     }
-                    savedCurrency =
-                        Currency(currencyCode, currencyValue, dateOfRequest, currencyName)
-                    addToDatabase(savedCurrency)
-                    println("Request in APi")
+                    addToDatabase(Currency(currencyCode, currencyValue, dateOfRequest, currencyName))
                 }
             } catch (e: Exception) {
                 requestError.value = EventWrapper("Problem to get Currency")

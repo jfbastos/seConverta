@@ -1,6 +1,5 @@
 package br.com.iesb.seconverta.model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import br.com.iesb.seconverta.MyApplication
 import br.com.iesb.seconverta.model.network.CurrencyApi
@@ -26,11 +25,10 @@ class CurrencyRepository {
         country: String,
         otherCountry: String
     ): Response<LinkedTreeMap<String, String>> {
-        return api.fetchCurrency(date, country ,otherCountry)
+        return api.fetchCurrency(date, country, otherCountry)
     }
 
     fun getCurrencyListLiveData(): LiveData<List<Currency>> {
-        Log.d("DB", "updated")
         return MyApplication.database!!.CurrencyDao().currency
     }
 

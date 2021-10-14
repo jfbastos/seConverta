@@ -29,18 +29,25 @@ class CurrencyAdapter(
         }
 
         override fun onLongClick(v: View?): Boolean {
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                listener.onLongItemClick(items[adapterPosition])
-            }
+            if (adapterPosition != RecyclerView.NO_POSITION) listener.onLongItemClick(items[adapterPosition])
             return true
         }
 
         fun bind(currency: Currency, activity: Activity) {
+            val currencyValueText = "${Formaters.formatMoneyToString(currency.value)} unit."
+            val totalValueText = "${currency.code} ${
+                Formaters.formatMoneyToString(
+                    Formaters.formatStringToDouble(
+                        currencyValue.text.toString(),
+                        activity
+                    ) * currency.value
+                )
+            }"
+
             itemBinding.currencyName.text = currency.code
-            itemBinding.currencyItemValue.text =
-                "${Formaters.formatMoneyToString(currency.value)} = R$ 1,00"
-            itemBinding.totalCurrencyValue.text = "${currency.code} ${
-                Formaters.formatMoneyToString(Formaters.formatStringToDouble(currencyValue.text.toString(),activity) * currency.value)}"
+            itemBinding.currencyDate.text = Formaters.formatDate(currency.lastUpdate)
+            itemBinding.currencyItemValue.text = currencyValueText
+            itemBinding.totalCurrencyValue.text = totalValueText
         }
     }
 
@@ -56,10 +63,10 @@ class CurrencyAdapter(
 
     override fun getItemCount() = items.size
 
-    fun update(selectedCurrencies: List<Currency>) {
+    fun update(currencies: List<Currency>) {
         items.clear()
-        items.addAll(selectedCurrencies)
-        notifyItemRangeChanged(0, selectedCurrencies.size)
+        items.addAll(currencies)
+        notifyDataSetChanged()
     }
 
     fun updateDeleted(currency: Currency) {

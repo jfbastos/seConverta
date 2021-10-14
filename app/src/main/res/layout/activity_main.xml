@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".view.MainActivity">
 
         <LinearLayout
@@ -46,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="12dp"
-                android:backgroundTint="@color/greenTopDetail"
+                android:backgroundTint="@color/primary"
                 android:src="@drawable/ic_baseline_add_24" />
 
         </LinearLayout>
@@ -57,14 +58,14 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginHorizontal="12dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/currencyDate"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_presentation"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/currency_item" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/currencyDate"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -79,32 +80,38 @@
 
             <Spinner
                 android:id="@+id/spinner_currency"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/background_spinner"
-                android:layout_gravity="center"
+                tools:text="Teste"
                 android:layout_margin="12dp"
-                android:elevation="8dp"
+                android:background="@drawable/background_spinner"
                 android:clipToPadding="false"
-                android:shadowColor="@color/black"
-                android:spinnerMode="dropdown" />
+                android:elevation="8dp"
+                android:gravity="center"
+                android:spinnerMode="dropdown"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/currencyValue"
-                android:layout_weight="4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="100dp"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/background_spinner"
                 android:inputType="numberDecimal"
+                android:padding="10dp"
                 android:text="@string/InsertValueText"
                 android:textColor="@color/white"
-                android:textSize="32sp"
-                android:textStyle="bold" />
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_currency"
+                app:layout_constraintStart_toEndOf="@id/spinner_currency"
+                app:layout_constraintTop_toTopOf="@id/spinner_currency"/>
 
 
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonRefreshCurrencies"
