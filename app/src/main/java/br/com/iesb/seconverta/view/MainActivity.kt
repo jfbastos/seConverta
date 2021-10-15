@@ -45,18 +45,14 @@ class MainActivity : AppCompatActivity(), CurrencyAdapter.OnLongItemClickListene
         }
 
         viewModel.getCountries()
-
-        viewModel.listOfCurrenciesFromDb.observe(this) {
-            currencyAdapter.update(it)
-        }
     }
 
     override fun onResume() {
         super.onResume()
 
         viewModel.listOfCurrenciesFromDb.observe(this) { list ->
+            println("Observer")
             val sortedList = list.sortedBy { it.code }
-            println(sortedList)
 
             val listOfCodes = arrayListOf<String>()
 
@@ -68,6 +64,7 @@ class MainActivity : AppCompatActivity(), CurrencyAdapter.OnLongItemClickListene
             }
 
             currencyAdapter.update(sortedList)
+            println("Adapter")
             binding.spinnerCurrency.setSelection(selectedSpinner)
         }
 

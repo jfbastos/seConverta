@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import br.com.iesb.seconverta.R
+import java.lang.Exception
 
 
 class CustomArrayAdapter(getContext: Context, private val listOfCodes: List<String>) : BaseAdapter() {
@@ -27,9 +28,14 @@ class CustomArrayAdapter(getContext: Context, private val listOfCodes: List<Stri
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = inflater.inflate(R.layout.spinner_item,null)
-        val currencyCode = view.findViewById<TextView>(R.id.spinnerTarget)
-        currencyCode.text = listOfCodes[position]
-        return view
+        return try{
+            val currencyCode = view.findViewById<TextView>(R.id.spinnerTarget)
+            currencyCode.text = listOfCodes[position]
+            view
+        }catch (e : Exception){
+            view
+        }
+
     }
 
 

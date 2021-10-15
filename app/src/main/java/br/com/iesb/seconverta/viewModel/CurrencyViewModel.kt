@@ -13,13 +13,14 @@ import kotlinx.coroutines.withContext
 
 class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel() {
     val listOfCurrenciesFromDb = repository.getCurrencyListLiveData()
-
+    var loading = MutableLiveData<Boolean>()
     val countriesListLiveData = MutableLiveData<List<Country>>()
     val requestError = MutableLiveData<EventWrapper<String>>()
 
 
     fun getCountries() {
         viewModelScope.launch {
+            loading.value = true
             try {
                 val response = repository.fetchAllCountries()
                 if (response.isSuccessful) {
@@ -27,54 +28,35 @@ class CurrencyViewModel(private val repository: CurrencyRepository) : ViewModel(
                         CountryCode.addCountrie(it.key, it.value)
                     }
                     countriesListLiveData.value = CountryCode.getCountriesList()
+                    loading.value = false
                 } else {
                     requestError.value = EventWrapper("Can't get countries list")
                 }
+
             } catch (e: Exception) {
+                loading.value = false
                 requestError.value = EventWrapper("Problem in fetch countries")
             }
         }
     }
 
     fun getCurrency(date: String,country : String,otherCountry: String) {
-        var dateOfRequest = ""
-        var currencyCode = ""
-        var currencyValue = 0.0
-        var currencyName = ""
 
         viewModelScope.launch {
-            try {
-                val response = repository.fetchCurrency(date, country, otherCountry)
-                if (response.isSuccessful) {
-                    response.body()?.forEach {
-                        if (it.key.equals("date")) {
-                            dateOfRequest = it.value
-                        } else {
-                            currencyCode = it.key
-                            currencyValue = it.value.toDouble()
-                            currencyName = CountryCode.countries.getValue(it.key)
-                        }
-                    }
-                    addToDatabase(Currency(currencyCode, currencyValue, dateOfRequest, currencyName))
-                }
-            } catch (e: Exception) {
+            loading.value = true
+            try{
+                repository.saveCurrency(date, country, otherCountry)
+                loading.value = false
+            }catch (e : Exception){
                 requestError.value = EventWrapper("Problem to get Currency")
+
             }
         }
     }
-
 
     fun updateCurrencies(country: String) {
         listOfCurrenciesFromDb.value?.forEach {
             getCurrency("latest", country ,it.code)
-        }
-    }
-
-    private fun addToDatabase(currency: Currency) {
-        CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.Default) {
-                MyApplication.database!!.CurrencyDao().insertCurrency(currency)
-            }
         }
     }
 

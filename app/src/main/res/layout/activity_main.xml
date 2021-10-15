@@ -9,7 +9,7 @@
         android:background="@color/white"
         tools:context=".view.MainActivity">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/user_presentation"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -29,35 +29,29 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="12dp"
-                android:maxLength="22"
-                android:textAlignment="textStart"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageButton
                 android:id="@+id/buttonAddCountries"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="12dp"
+                android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/primary"
-                android:src="@drawable/ic_baseline_add_24" />
+                android:src="@drawable/ic_baseline_add_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="12dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/currencyDate"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -96,7 +90,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/currencyValue"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="12dp"
                 android:background="@drawable/background_spinner"
@@ -108,25 +102,25 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/spinner_currency"
                 app:layout_constraintStart_toEndOf="@id/spinner_currency"
-                app:layout_constraintTop_toTopOf="@id/spinner_currency"/>
+                app:layout_constraintTop_toTopOf="@id/spinner_currency"
+                app:layout_constraintEnd_toStartOf="@id/buttonRefreshCurrencies"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buttonRefreshCurrencies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_700"
+                android:src="@drawable/ic_convert_24"
+                android:layout_margin="10dp"
+                app:borderWidth="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/currencyValue"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buttonRefreshCurrencies"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/teal_700"
-            android:src="@drawable/ic_convert_24"
-            app:borderWidth="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.90"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/user_presentation"
-            app:layout_constraintVertical_bias="0.915"
-            app:tint="@color/white" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

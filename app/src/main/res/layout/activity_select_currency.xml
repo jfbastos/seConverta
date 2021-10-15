@@ -10,8 +10,9 @@
 
         <TextView
             android:id="@+id/texViewSelectCurrency"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="92dp"
             android:padding="16dp"
             android:text="@string/selecione_as_moedas"
             android:textColor="@color/black"
@@ -20,6 +21,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@id/texViewSelectCurrency"
+            app:layout_constraintTop_toTopOf="@id/texViewSelectCurrency"
+            app:layout_constraintBottom_toBottomOf="@id/texViewSelectCurrency"
+            />
 
         <SearchView
             android:id="@+id/search_view"
@@ -46,7 +59,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonAddSelectedCurrency"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_margin="16dp"
             android:background="@drawable/rounded_content_button"
             android:text="@string/confirma"

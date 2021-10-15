@@ -1,6 +1,8 @@
 package br.com.iesb.seconverta.view
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -44,9 +46,17 @@ class ListCountriesActivity : AppCompatActivity() {
 
         viewModel.getCountries()
 
+        viewModel.loading.observe(this){ loading ->
+            if(loading) binding.loading.visibility = View.VISIBLE
+            else{
+                binding.loading.visibility = View.INVISIBLE
+            }
+        }
+
         viewModel.countriesListLiveData.observe(this) { countries ->
             listOfCountries.addAll(countries)
             countriesAdapter.update(countries)
+
         }
 
         binding.buttonAddSelectedCurrency.setOnClickListener {
@@ -61,11 +71,18 @@ class ListCountriesActivity : AppCompatActivity() {
             countriesAdapter.getSelectedCountries().forEach { country ->
                 if (selectedCountry == "-") {
                     viewModel.getCurrency("latest", country.code, country.code)
+
                 } else {
                     viewModel.getCurrency("latest", selectedCountry, country.code)
+
                 }
             }
-            finish()
+
+            viewModel.loading.observe(this) { loading ->
+                if(loading) binding.loading.visibility = View.VISIBLE
+                else finish()
+            }
+
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
