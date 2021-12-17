@@ -1,21 +1,22 @@
 # seConverta
 
+![Badge em Desenvolvimento](https://img.shields.io/badge/status-em%20desenvolvimento-blue?style=flat) ![Badge em Desenvolvimento](https://img.shields.io/badge/código%20em-kotlin-blueviolet?style=flat) ![Badge em Desenvolvimento](https://img.shields.io/badge/arquitetura-MVVM-sucess?style=flat)
+
+
 ## Sobre
 
 Aplicativo para cotação de moedas mundiais. 💱
 
-O usuário tem a opção de escolher as moedas que deseja acompanhar e fazer a conversão em relação à moeda selecionada.
+O usuário pode escolher quais moedas deseja acompanhar e fazer os calculos de cotação destas.
 
-## Tecnologias utilizadas
+### Tecnologias utilizadas
 
-**Retrofit** para consumo de API-Rest,
+- Retrofit,
+- Room,
+- RecyclerView,
+- Jetpack,
+- Arquitetura MVVM.
 
-**Room** para persistência de dados,
-
-**RecyclerView** para criação de listas personalizadas e performáticas,
-
-Arquitetura **MVVM**.
-
-### API - Free Currency Rates API
+#### API - Free Currency Rates API
 
 [https://github.com/fawazahmed0/currency-api#readme](https://github.com/fawazahmed0/currency-api#readme)
