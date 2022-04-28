@@ -1,12 +1,13 @@
 package br.com.iesb.seconverta.utils
 
 import android.app.Activity
+import android.content.ContentResolver
+import android.provider.Settings.Global.getString
 import android.widget.Toast
+import br.com.iesb.seconverta.R
 import java.util.*
 
-class Formaters {
-
-    companion object {
+object Formatters {
         fun formatMoneyToString(valor: Double): String {
             return try {
                 String.format(Locale("pt", "BR"), "%.2f", valor)
@@ -15,12 +16,15 @@ class Formaters {
             }
         }
 
-        fun formatStringToDouble(value: String, activity: Activity): Double {
+        fun formatStringToDouble(value: String): Double {
             return try {
-                value.toDouble()
+                if(value.isEmpty()){
+                    0.0
+                }else{
+                    value.toDouble()
+                }
             } catch (e: Exception) {
-                Toast.makeText(activity, "Use dot instead of comma!", Toast.LENGTH_SHORT).show()
-                return 1.0
+                return 0.0
             }
         }
 
@@ -29,5 +33,4 @@ class Formaters {
             return String.format("${dateArray?.get(2)}/${dateArray?.get(1)}/${dateArray?.get(0)}")
         }
 
-    }
 }

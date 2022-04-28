@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import br.com.iesb.seconverta.R
 import java.lang.Exception
 

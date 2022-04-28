@@ -1,8 +1,7 @@
 package br.com.iesb.seconverta.model
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
-import br.com.iesb.seconverta.MyApplication
+import br.com.iesb.seconverta.model.dao.CurrencyDao
 import br.com.iesb.seconverta.model.network.CurrencyApi
 import com.google.gson.internal.LinkedTreeMap
 import kotlinx.coroutines.CoroutineScope
@@ -10,17 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
-class CurrencyRepository {
-
-    private val api: CurrencyApi = Retrofit.Builder()
-        .baseUrl(CurrencyApi.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-        .create(CurrencyApi::class.java)
+class CurrencyRepository(private val api: CurrencyApi,  private val currencyDao: CurrencyDao) {
 
     suspend fun fetchAllCountries(): Response<LinkedTreeMap<String, String>> {
         return api.fetchAllCountries()
@@ -35,48 +25,21 @@ class CurrencyRepository {
     }
 
     fun getCurrencyListLiveData(): LiveData<List<Currency>> {
-        return MyApplication.database!!.CurrencyDao().currency
+        return currencyDao.currency
     }
 
-    fun saveCurrency (date: String,country : String,otherCountry: String) {
-        var dateOfRequest = ""
-        var currencyCode = ""
-        var currencyValue = 0.0
-        var currencyName = ""
-
+    fun saveCurrency (currency : Currency){
         CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val response = fetchCurrency(date, country, otherCountry)
-                if (response.isSuccessful) {
-                    response.body()?.forEach {
-                        if (it.key.equals("date")) {
-                            dateOfRequest = it.value
-                        } else {
-                            currencyCode = it.key
-                            currencyValue = it.value.toDouble()
-                            currencyName = CountryCode.countries.getValue(it.key)
-                        }
-                    }
-                    println("Banco viewModel")
-                    addToDatabase(
-                        Currency(
-                            currencyCode,
-                            currencyValue,
-                            dateOfRequest,
-                            currencyName
-                        )
-                    )
-                }
-            }catch (e : Exception){
-                throw e
+            withContext(Dispatchers.Default){
+                currencyDao.insertCurrency(currency)
             }
         }
     }
 
-    private fun addToDatabase(currency: Currency) {
+    fun deleteCurrencyItem(currency: Currency) {
         CoroutineScope(Dispatchers.Main).launch {
             withContext(Dispatchers.Default) {
-                MyApplication.database!!.CurrencyDao().insertCurrency(currency)
+                currencyDao.delete(currency.code)
             }
         }
     }

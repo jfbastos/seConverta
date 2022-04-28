@@ -9,4 +9,6 @@
     <string name="delete_message">Tem certeza que deseja deletar\u0020</string>
     <string name="delete_confirmation">Sim</string>
     <string name="delete_negation">Não</string>
+    <string name="empty_value">Value can not be empty!</string>
+    <string name="dot_comma_err">Use dot instead of comma!</string>
 </resources>

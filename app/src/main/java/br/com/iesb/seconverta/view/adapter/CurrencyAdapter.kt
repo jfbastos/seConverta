@@ -1,81 +1,75 @@
 package br.com.iesb.seconverta.view.adapter
 
-import android.app.Activity
+import android.text.Editable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import br.com.iesb.seconverta.R
 import br.com.iesb.seconverta.databinding.CurrencyItemBinding
 import br.com.iesb.seconverta.model.Currency
-import br.com.iesb.seconverta.utils.Formaters
+import br.com.iesb.seconverta.utils.Formatters
 import com.google.android.material.textfield.TextInputEditText
 
-class CurrencyAdapter(
-    private val items: ArrayList<Currency>,
-    private val activity: Activity,
-    private val listener: OnLongItemClickListener
-) :
-    RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder>() {
+class CurrencyAdapter(valueEditText: TextInputEditText) : ListAdapter<Currency, CurrencyAdapter.CurrencyViewHolder>(differCallback) {
 
-    inner class CurrencyViewHolder(itemView: View, activity: Activity) :
-        RecyclerView.ViewHolder(itemView), View.OnLongClickListener {
-        private val itemBinding = CurrencyItemBinding.bind(itemView)
-        private val currencyValue = activity.findViewById<TextInputEditText>(R.id.currencyValue)
+    private val valueToConvert = valueEditText
 
+    companion object{
+        private val differCallback : DiffUtil.ItemCallback<Currency> = object: DiffUtil.ItemCallback<Currency>(){
+            override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean {
+                return oldItem == newItem
+            }
 
-        init {
-            itemView.setOnLongClickListener(this)
+            override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean {
+                return oldItem.code == newItem.code
+            }
         }
+    }
 
-        override fun onLongClick(v: View?): Boolean {
-            if (adapterPosition != RecyclerView.NO_POSITION) listener.onLongItemClick(items[adapterPosition])
-            return true
-        }
+    val differ = AsyncListDiffer(this, differCallback)
 
-        fun bind(currency: Currency, activity: Activity) {
-            val currencyValueText = "${Formaters.formatMoneyToString(currency.value)} unit."
+    inner class CurrencyViewHolder(private val itemBinding: CurrencyItemBinding, private val conversionValue: Editable?) :
+        RecyclerView.ViewHolder(itemBinding.root) {
+
+         fun bind(currency: Currency) {
+            val currencyValueText = "${Formatters.formatMoneyToString(currency.value)} unit."
             val totalValueText = "${currency.code} ${
-                Formaters.formatMoneyToString(
-                    Formaters.formatStringToDouble(
-                        currencyValue.text.toString(),
-                        activity
+                Formatters.formatMoneyToString(
+                    Formatters.formatStringToDouble(
+                        conversionValue.toString(),
                     ) * currency.value
                 )
             }"
 
             itemBinding.currencyName.text = currency.code
-            itemBinding.currencyDate.text = Formaters.formatDate(currency.lastUpdate)
+            itemBinding.currencyDate.text = Formatters.formatDate(currency.lastUpdate)
             itemBinding.currencyItemValue.text = currencyValueText
             itemBinding.totalCurrencyValue.text = totalValueText
+
+
+            itemBinding.root.setOnLongClickListener {
+                onLongItemClickListener.invoke(currency)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.currency_item, parent, false)
-        return CurrencyViewHolder(view, activity)
+        val binding = CurrencyItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false)
+        return CurrencyViewHolder(binding, valueToConvert.text)
     }
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        holder.bind(items[position], activity)
+        holder.bind(differ.currentList[position])
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = differ.currentList.size
 
-    fun update(currencies: List<Currency>) {
-        items.clear()
-        items.addAll(currencies)
-        notifyDataSetChanged()
-    }
+    private lateinit var onLongItemClickListener: ((Currency) -> Boolean)
 
-    fun updateDeleted(currency: Currency) {
-        val position = items.indexOf(currency)
-        items.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    interface OnLongItemClickListener {
-        fun onLongItemClick(currency: Currency)
+    fun setOnLongItemClickListener(longClickListener: (Currency) -> Boolean) {
+        onLongItemClickListener = longClickListener
     }
 }
